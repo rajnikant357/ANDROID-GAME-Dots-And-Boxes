@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Dots &amp; Boxes</string>
+    <string name="welcome_headline">Dots &amp; Boxes</string>
+    <string name="welcome_subtitle_line1">Three escalating boards. Eighty-three boxes.</string>
+    <string name="welcome_subtitle_line2">Draw each line with care; every claim earns another turn.</string>
+    <string name="create_profile_cta">Create profile</string>
+    <string name="offline_direct_cta">Play offline 1v1 instead</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_leaderboard">Leaderboard</string>
+    <string name="nav_profile">Profile</string>
+    <string name="leave_match_title">Leave match?</string>
+    <string name="leave_match_online_body">Quitting an ongoing online match deducts 5 EXP. Any diamonds already collected are kept.</string>
+    <string name="leave_match_friend_body">Your match with a friend will end with no EXP penalty. Any diamonds already collected are kept.</string>
+    <string name="leave_match_offline_body">Your current offline match progress will be cleared. No EXP penalty applies.</string>
+    <string name="offline_exp_note">Offline match. EXP not awarded.</string>
+    <string name="paywall_prototype_note">Prototype: no payment is taken.</string>
+</resources>

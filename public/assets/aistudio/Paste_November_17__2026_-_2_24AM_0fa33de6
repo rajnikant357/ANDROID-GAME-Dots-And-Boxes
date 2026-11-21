@@ -1,0 +1,487 @@
+# Design Requirements Document (DRD)
+## Dots & Boxes: Playful Game Art Direction
+
+**Version:** 1.0
+**Replaces:** PRD §10 (Visual Design Direction). Functional requirements in the PRD are unchanged.
+**Build tool:** Google AI Studio App Builder (React + Tailwind + SVG)
+**Target:** Android (via web wrapper), phone portrait first
+
+---
+
+## 1. Design Intent
+
+Dots & Boxes should feel like a real game that someone made with care for a table full of friends. The screen should look like a playful tabletop: a wooden table, a sheet of paper with pencil lines, friendly teddy characters watching from the corners, and bold, bouncy lettering that you can read from across the room.
+
+The app should make players smile in the first five seconds and keep that warmth on every screen. It is cute and cheerful, but it is not childish or noisy. Every element has a clear job: it either helps a player read the board or makes the game feel alive.
+
+### 1.1 One-line brief
+> A cozy paper-and-wood tabletop game with chunky, bubbly lettering and friendly teddy characters.
+
+### 1.2 Mood words
+Cozy · Tactile · Cheerful · Bouncy · Handmade · Warm · Confident
+
+### 1.3 Mood words to avoid
+Corporate · Sterile · Dark and moody · Futuristic · Edgy · Hyper-neon · Generic "AI" gradients
+
+---
+
+## 2. Style Pillars
+
+1. **Tabletop, not screen.** Surfaces look like physical materials: paper, wood, felt, cardboard. Everything has a bit of texture and a slight irregularity.
+2. **Chunky, outlined, and friendly.** Shapes have thick dark outlines, rounded corners and hard offset shadows, like cartoon stickers and cut-out paper.
+3. **Teddies as the heart of the brand.** Teddy characters appear in avatars, empty states, results, and tips. They react to what the player does.
+4. **Bold type that bounces.** Headings are big, round, and heavy. Numbers are the stars of the screen.
+5. **Color with purpose.** Color is saturated and cheerful, but each color has a meaning: player, state, or reward. Nothing is decoration for its own sake.
+6. **Readable first.** Cute never beats clarity. The board and the turn indicator are always the easiest things to read.
+
+---
+
+## 3. Color System
+
+Colors are warm and saturated. They sit on warm paper and wood, not on dark, cold backgrounds.
+
+### 3.1 Base materials
+
+| Token | Hex | Use |
+|---|---|---|
+| `paper.cream` | `#FFF4DE` | Main paper background |
+| `paper.shade` | `#F3E2C0` | Paper shadows, card backs, alternating rows |
+| `paper.line` | `#C9B48A` | Pencil guide lines on paper |
+| `wood.light` | `#D9A36A` | Light wood planks, table top highlight |
+| `wood.mid` | `#B97D45` | Standard wood surface, nav bar |
+| `wood.dark` | `#8A5628` | Wood grain, deep panels, pressed states |
+| `ink` | `#2B1A10` | All outlines, body text, dot color (warm near-black brown, not pure black) |
+| `felt.green` | `#5FA776` | Optional table felt for menus and lobby |
+
+### 3.2 Brand and UI colors
+
+| Token | Hex | Use |
+|---|---|---|
+| `brand.honey` | `#F7B73A` | Primary button, accent, stars, EXP bar |
+| `brand.berry` | `#EF5B6B` | Alerts, leave, destructive, hearts |
+| `brand.mint` | `#4FC08D` | Success, online dot, "Subscribed" state |
+| `brand.sky` | `#4AA8F0` | Links, info, chat bubbles (others) |
+| `brand.lilac` | `#A989E8` | Rewards, level-up, badges (used sparingly) |
+| `brand.teddy` | `#C98B53` | Teddy fur base |
+| `brand.teddyDark` | `#9A6034` | Teddy shading, outlines on fur |
+
+### 3.3 Player colors (board and profiles)
+
+| Player | Fill | Outline | Use |
+|---|---|---|---|
+| Player 1 default | `#FF7A5C` (tomato) | `#2B1A10` | Claimed boxes, turn bar, score chip |
+| Player 2 default | `#4AA8F0` (sky) | `#2B1A10` | Claimed boxes, turn bar, score chip |
+
+**Profile color choices** (must read clearly on paper): tomato `#FF7A5C`, sky `#4AA8F0`, mint `#4FC08D`, honey `#F7B73A`, berry `#EF5B6B`, lilac `#A989E8`, teddy `#C98B53`, lime `#9BD35A`.
+
+Each player color must also have a **pattern** (stripes, dots, or stars) for players who cannot tell colors apart. See §11.
+
+### 3.4 Color rules
+- Text on paper is always `ink`.
+- Text on honey, mint, sky, or lime uses `ink`. Text on berry, tomato, lilac, or teddy uses `ink` or white with a 2 px ink outline.
+- Never place light text on the paper background.
+- Never use pure black `#000000` or pure white `#FFFFFF` for text.
+- No neon. Saturation stays in the bright, friendly range, not glowing.
+
+---
+
+## 4. Textures
+
+Textures are what make the app feel physical. They are applied as subtle overlays, not as photos.
+
+### 4.1 Paper texture
+- Used on: Home background, Room sheet, cards, leaderboard, results, profile.
+- Method: an SVG `feTurbulence` noise overlay with `baseFrequency` around `0.8`, blended at 6–8% opacity over `paper.cream`.
+- Add faint fibers using a second, larger-frequency noise at 3% opacity.
+- Edges of paper cards: a 2 px `ink` outline with a slightly rough corner (a 1–2 px irregular border via an SVG path, not a perfect rectangle).
+- Optional: a few crease lines at 4% opacity on the largest panels only.
+
+### 4.2 Wood texture
+- Used on: the table behind the board, the bottom navigation, the header bar, the lobby signboard, and the leaderboard podium.
+- Method: a base `repeating-linear-gradient` in `wood.mid` / `wood.dark` at vertical stripes 6–14 px apart, with an SVG `feTurbulence` stretched horizontally (`baseFrequency="0.01 0.35"`) at 15–20% opacity to create grain.
+- Add a faint knot (a small ellipse with a darker ring) on large wood areas only, not on every screen.
+- Wood surfaces get a 3 px `ink` bottom edge, like a plank.
+
+### 4.3 Felt texture (optional)
+- Lobby and menu backgrounds may use `felt.green` with a fine noise overlay at 5%. Use only on one screen or as a theme option.
+
+### 4.4 Texture rules
+- Textures never reduce text contrast. If the text sits on a textured area, put it on a solid paper card.
+- Maximum two textured surfaces visible in one view.
+- Textures are static. No animated noise.
+
+---
+
+## 5. Typography
+
+Lettering is bold, round, and bouncy. It should feel like hand-cut letters on a poster.
+
+### 5.1 Typefaces
+
+| Role | Typeface | Weight | Notes |
+|---|---|---|---|
+| Display (titles, wordmark, big numbers) | **Lilita One** | Regular (only weight) | Chunky, rounded, bubbly. Use with a 3 px `ink` text-stroke and a hard 3 px offset shadow for the wordmark |
+| Headings (screen titles, card titles) | **Fredoka** | 600–700 | Soft, rounded, friendly |
+| UI and body | **Nunito** | 600 for labels, 700 for buttons, 400–500 for body | Very readable at small sizes |
+| Scores and numbers | **Lilita One** | Regular | Big, bold, instantly scannable |
+| Board initials | **Lilita One** | Regular | Inside claimed boxes |
+
+Load from Google Fonts. Do not use system fonts for display text.
+
+### 5.2 Type scale (sp)
+
+| Token | Size | Use |
+|---|---|---|
+| `display.xl` | 56 | Wordmark, results winner name |
+| `display.l` | 40 | Screen titles on hero screens |
+| `display.m` | 28 | Section titles, big scores |
+| `heading` | 22 | Card titles |
+| `body.l` | 17 | Primary body text |
+| `body.m` | 15 | Default body and labels |
+| `caption` | 12 | Timestamps, meta |
+
+Minimum body size is 15 sp.
+
+### 5.3 Typography treatments
+- **Chunky title:** Lilita One, `ink` fill, 3 px `ink` outline via `paint-order: stroke fill`, with a hard 0 blur, 3 px offset shadow in `brand.honey` or a color matched to the screen.
+- **Score numbers:** Lilita One, large, with a small label in Nunito 600 above.
+- **Button text:** Nunito 700, uppercase only on primary actions, letter-spacing 0.5 px. Other buttons use sentence case.
+- Do not set body text in Lilita One. It is for display only.
+
+---
+
+## 6. Shape, Outline and Shadow System
+
+This is the core of the cartoon look. Every interactive element uses the same system.
+
+### 6.1 Outlines
+- **Standard outline:** 3 px, `ink`, on cards, buttons, avatars, chips, inputs.
+- **Thin outline:** 2 px, for secondary elements such as list dividers.
+- **Thick outline:** 4 px, for the main board frame and hero cards.
+
+### 6.2 Corners
+- Cards and sheets: 24 px radius.
+- Primary buttons: full pill (999 px).
+- Chips and tags: full pill.
+- Inputs: 16 px radius.
+- Board: 28 px radius with a slightly irregular edge (see §4.1).
+- Avatars: circle, or a rounded squircle for teddy avatars.
+
+### 6.3 Shadows
+- No blurred shadows. All shadows are hard, offset, and in `ink` at 100% (or a darker tint of the surface color).
+- Standard card: 0 px blur, 4 px offset down-right.
+- Pressed button: the shadow shrinks to 0 and the element moves down 4 px. The button "sinks" into the table.
+- Floating sheets (bottom sheet, modal): 0 px blur, 6 px offset.
+
+### 6.4 Pressable buttons ("bubble" buttons)
+- Primary button has a 4 px bottom "lip" in a darker shade of the button color, so it looks like a physical button.
+- Pressed state: the lip is hidden and the button moves down 4 px.
+- Disabled: fill becomes `paper.shade`, outline becomes `line` at 40%, text becomes `ink` at 40%.
+
+### 6.5 Stickers
+- Some elements (level badge, "New" tags, rewards) are shaped like paper stickers: a white or cream border 4 px wide, an `ink` outline, and a slight rotation of −4° to 4°.
+- Limit to one or two rotated elements per screen.
+
+---
+
+## 7. Teddy Characters
+
+Teddies are the emotional center of the brand. They are simple, round, and expressive.
+
+### 7.1 Brand mascot
+- **Name:** Biscuit
+- **Look:** round teddy bear, `brand.teddy` fur, lighter muzzle, dark button eyes with a white highlight, small ink nose, a red-and-cream scarf.
+- **Personality:** cheerful, a little proud, never mean. Biscuit cheers for both players.
+
+### 7.2 Expressions (required set)
+1. **Happy** (default, smiling, eyes open)
+2. **Thinking** (eyes to the side, paw on chin)
+3. **Surprised** (round mouth, eyebrows up)
+4. **Celebrating** (arms up, eyes closed happily)
+5. **Sleepy** (eyes closed, small "z" shape)
+6. **Sad** (droopy eyes, small frown, used only for loss or error states, and never in a way that mocks the player)
+
+### 7.3 Poses (required set)
+- Waving (Home, Welcome)
+- Holding a pencil (Room, tip and rules)
+- Holding a trophy (Results, Leaderboard top)
+- Sitting with a cup of cocoa (Settings, empty chat)
+- Peeking from a corner (Lobby empty state)
+
+### 7.4 Illustration rules
+- Teddies are drawn as flat vector shapes with a 3 px `ink` outline and a 2-tone fur shade. No gradients on fur.
+- Teddies never overlap the board or cover a dot or line.
+- Teddies sit in corners or in dedicated spaces, usually at 96–160 px tall on phones.
+- Teddies can bounce or blink briefly (300–400 ms), never loop forever.
+
+### 7.5 Teddy profile avatars
+Players choose an avatar from teddy variants. Avatars are not gendered. The gender field is separate.
+
+- **Base bodies (8):** teddy brown, honey, cream, dark chocolate, grey, pink, sky, mint.
+- **Accessories (optional, 12):** bow, beanie, crown, glasses, flower, bandana, scarf, star clip, headphones, cap, bunny ears, halo.
+- **Expression:** each avatar uses the Happy expression by default. Players can pick Happy or Celebrating.
+- Avatars are drawn in a circle or squircle frame with a 3 px `ink` outline and a colored backdrop chosen from the player colors.
+
+### 7.6 Teddy usage map
+
+| Screen | Teddy pose and expression |
+|---|---|
+| Splash | Waving, happy (animated bounce once) |
+| Welcome | Waving, happy |
+| Create profile | Holding pencil, thinking |
+| Home | Peeking from corner, happy |
+| Offline setup | Holding pencil, happy |
+| Room (in-game corner) | Thinking when it's a player's turn, celebrating after a capture |
+| Level transition | Celebrating |
+| Results (winner) | Holding trophy, celebrating |
+| Results (tie, not possible but reserved) | Thinking |
+| Lobby (no rooms) | Peeking, sleepy |
+| Chat (empty) | Sitting with cocoa, happy |
+| Voice (locked) | Surprised, with a small lock sticker |
+| Leaderboard (top 3) | Holding trophy on podium |
+| Settings | Sitting with cocoa |
+
+---
+
+## 8. Board Visual Design
+
+The board is the heart of the game. It must look like a real tabletop game and read clearly at a glance.
+
+### 8.1 Board surface
+- A sheet of `paper.cream` with the paper texture (§4.1), placed on the `wood` table background.
+- The sheet has a 4 px `ink` outline with a slightly rough edge.
+- Corner pins or tape pieces (small, muted) at two corners for a "pinned paper" feel. Optional, one set per board.
+- Light pencil guide grid in `paper.line` at 30% opacity behind the dots.
+
+### 8.2 Dots
+- Dots are small wooden pegs: 10 px diameter, `wood.dark` fill, 2 px `ink` outline, a tiny white highlight in the upper left.
+- Dots are rendered above lines.
+
+### 8.3 Lines
+- Drawn lines look like pencil or crayon strokes: 6 px wide, `ink`, with rounded ends and a slight hand-drawn wobble (a small sine offset of ±0.8 px along the length).
+- Undrawn lines are shown as faint dotted pencil marks (`paper.line` at 60%) so the player can see every possible move.
+- Hover and tap feedback: the faint line thickens to 4 px and turns `brand.honey` at 60%. The line "draws in" over 150 ms when placed.
+- The last line placed has a small `brand.honey` highlight dot at its midpoint for one turn.
+
+### 8.4 Boxes
+- Claimed box: filled with the owner's player color at full saturation, with a 2 px `ink` inner outline. Inside, a chunky Lilita One initial with a 2 px `ink` stroke.
+- Box also shows the owner's pattern (stripes or dots) at 25% opacity, so colorblind players can still tell owners apart (§11).
+- Claim animation: a sticker "stamp" pops in with a 1.05 → 1.0 scale over 200 ms, and a small star sparkle (three shapes, not particles) appears once.
+
+### 8.5 Turn and scores
+- Turn indicator: a rounded pill above the board, showing the active player's avatar and "Your turn" in Nunito 700. The pill's outline and fill use that player's color.
+- Score chips: pill with avatar, initials, and the score in Lilita One, positioned at the top-left (Player 1) and top-right (Player 2) of the board, or on the table edge.
+- Teddy Biscuit sits in one bottom corner of the table, outside the board.
+
+### 8.6 Board sizes
+- All three sizes (4×4, 6×6, 8×8 dots) use the same visual system, scaled to fit.
+- Dot and line weights scale slightly with grid size: 10 px / 6 px at 4×4, 8 px / 5 px at 6×6, 7 px / 4.5 px at 8×8, so the lines stay readable.
+
+---
+
+## 9. Screen Art Direction
+
+For each screen: background, hero element, emphasis, and the tone of the layout.
+
+| Screen | Background | Hero | Notes |
+|---|---|---|---|
+| Splash | Wood table with paper scrap | Chunky wordmark with teddy Biscuit waving | 1.5 s hold, bounce once |
+| Welcome | Paper with pencil doodle border | Biscuit waving, one short line of copy | Primary button in honey |
+| Create profile | Paper | Avatar carousel (teddy variants) | Teddy in corner reacts to name typed |
+| Home | Wood table with paper cards | Three big mode cards: Offline 1v1, Play online, Leaderboard | Each card has a unique sticker icon (crayon-style) |
+| Offline setup | Paper | Two player cards with avatars | Color and pattern pickers with large tap targets |
+| Offline Room | Wood table, board on paper | Board in the center | Turn pill above board, score chips at top |
+| Level transition | Paper with confetti-free star ring | "Level 2" in display type | Biscuit celebrating |
+| Match results | Paper with wood podium | Winner avatar and name in display.xl | Stat table on a paper card, "Play again" in honey |
+| Lobby | Felt green with wood signboard | Signboard title "Lobby", room cards as paper tickets | Biscuit peeking from corner |
+| Online Room | Wood table | Same as Offline Room + side sheet | Side sheet is a paper bottom sheet with tabs |
+| Chat | Paper | Chat bubbles | See §10.2 |
+| Voice | Felt green | Participant avatars as round stickers | Speaking ring: honey pulsing ring, 2 px ink |
+| Paywall | Paper with a ribbon banner | Price "₹9 / month" in display.l | Biscuit with headphones |
+| Leaderboard | Wood table | Podium for top 3 (wood steps), list on paper below | Trophy icons, rank in Lilita One |
+| Profile | Paper with a wood header | Large teddy avatar with accessory, EXP bar | Level sticker overlapping avatar |
+| Settings | Paper | Toggle rows | Biscuit sitting with cocoa |
+
+---
+
+## 10. Components
+
+### 10.1 Buttons
+- **Primary:** honey fill, `ink` text, 3 px `ink` outline, 4 px bottom lip, pill shape.
+- **Secondary:** cream fill, `ink` text, 3 px outline, no lip.
+- **Danger:** berry fill, white text with `ink` outline, lip.
+- **Icon button:** round, 48 px minimum, cream fill, 3 px outline.
+- Minimum tap target 48 × 48 px.
+
+### 10.2 Chat bubbles
+- Other player's bubble: cream paper with 2 px `ink` outline and a rounded tail on the left.
+- My bubble: sky (or my color) fill with `ink` text and a tail on the right.
+- Each bubble shows a small avatar and the sender's name in Nunito 600.
+- Timestamps in caption size.
+- System messages: centered, in a small wood-colored pill.
+
+### 10.3 Cards
+- Paper card: `paper.cream` fill, 3 px `ink` outline, 24 px radius, hard 4 px shadow.
+- Wood card: wood texture with `paper.cream` text label area.
+- Ticket card (lobby rooms): paper with notched edges, a dashed divider, and the room code in Lilita One.
+
+### 10.4 Chips and tags
+- Pill, 2 px `ink` outline, colored fill from the palette.
+- Level chip: honey, with "Lv" and the number in Lilita One.
+- Status chip: mint for online, pale grey with dashed outline for offline.
+
+### 10.5 Bottom navigation
+- Wood bar with 3 px `ink` top edge.
+- Three items: Home, Leaderboard, Profile. Each item is an icon in a chunky outline style plus a label in Nunito 700.
+- Active item: a paper sticker circle behind the icon, pulled up 6 px above the bar.
+
+### 10.6 Toggles and inputs
+- Toggle: pill track with `ink` outline, paper knob with `ink` outline. On state: mint track.
+- Text input: cream fill, 3 px `ink` outline, 16 px radius. Focus: honey outline 4 px.
+- Color picker: round swatches with 3 px outlines, selected swatch has a bigger outline and a tiny check.
+
+### 10.7 Bottom sheet
+- Paper with a wood handle bar at the top.
+- 28 px top radius, 3 px `ink` outline on top and sides.
+
+### 10.8 Progress bars (EXP)
+- Pill track in `paper.shade` with a 2 px `ink` outline.
+- Fill in honey with a striped pattern (diagonal, 25%) so it looks like a candy bar.
+- The level sticker sits at the left end of the bar.
+
+### 10.9 Leaderboard rows
+- Paper row with 2 px `ink` divider.
+- Rank number in Lilita One, large. Top 3 use gold, silver, and bronze stickers.
+- Avatar, name in Fredoka 600, level chip, EXP in Lilita One.
+- Your row: honey highlight band behind the row (fill, not glow), 3 px outline.
+
+---
+
+## 11. Accessibility and Readability
+
+- **Color is never the only signal.** Each player has a color AND a pattern AND an initial on the board and in profiles.
+- **Contrast:** body text must be at least 4.5:1 against its background. Large display text at least 3:1.
+- **Text sizes:** body text never below 15 sp. Score numbers always at display.m or larger.
+- **Outlines** remain on all interactive elements so they stay visible without relying on color alone.
+- **Reduced motion:** disables bounce, line draw-in, stamp pop, and teddy animations. Static poses remain.
+- **Hit targets:** minimum 48 px for buttons; board lines use an invisible 30 px hit area.
+- **Dyslexia-friendly option (setting):** switches body text to a more open face such as Lexend and increases line spacing to 1.6.
+- **Sound:** every sound effect has a visual equivalent. Sounds are optional and default on, with a single toggle in Settings.
+
+---
+
+## 12. Motion and Sound Feel
+
+### 12.1 Motion
+- Bouncy but short: spring easing for pops and stamps (duration 200–280 ms).
+- Teddy bounce: 300 ms, once per trigger.
+- Screen transitions: slide and fade in 280 ms; paper "flip" transition for Results.
+- No looping animations except the speaking ring in Voice (honey pulse, 1.2 s cycle, paused when muted).
+- No particle confetti. Use three-star bursts or a single paper ribbon wave on wins.
+
+### 12.2 Sound (prototype spec)
+- Line draw: soft pencil scratch, 120 ms.
+- Box claim: a bright wooden "tock" with a small chime.
+- Turn change: a soft wooden knock.
+- Level complete: a short fanfare (two bars, marimba or xylophone timbre).
+- Match win: a longer celebratory jingle.
+- Chat message: soft paper rustle.
+- Level up: a rising three-note chime.
+
+Sound files are placeholders in the prototype. Note these as requirements in the build, not as finished audio.
+
+---
+
+## 13. Iconography and Stickers
+
+- **Icon style:** chunky line icons, 2.5 px `ink` stroke, rounded caps, with one flat color fill on a secondary shape. Consistent across the app.
+- **Mode stickers (Home):** crayon-style illustrations for Offline (two pencils crossed), Online (a pair of teddies holding hands), and Leaderboard (a small trophy).
+- **Icons used:** home, play, trophy, person, chat bubble, microphone, lock, settings, logout, edit, check, star, crown, heart.
+- Gender marks: a small round sticker with a simple symbol. No emoji.
+
+---
+
+## 14. Asset Production Approach (for AI Studio)
+
+AI Studio builds code. Art assets should be produced as code, so they stay crisp and easy to edit.
+
+- **Textures:** SVG filters (feTurbulence) and CSS gradients, as in §4. No image files needed.
+- **Teddies and avatars:** SVG components, one component per expression and pose. Build a single `Teddy` component that takes `pose` and `expression` props. Avatars are built from `Teddy` with an accessory slot.
+- **Icons and stickers:** SVG components with shared stroke settings from one config file.
+- **Board:** SVG, with dots and lines as components. Pencil wobble computed in code from a seeded random value so each line looks the same on every render.
+- **Fonts:** loaded from Google Fonts (Lilita One, Fredoka, Nunito, optional Lexend).
+- Keep all art in one `theme` file and one `assets` folder so it's easy to restyle later.
+
+---
+
+## 15. Do and Don't
+
+### Do
+- Use warm paper and wood as base surfaces.
+- Keep outlines thick, consistent, and in `ink`.
+- Use hard offset shadows only.
+- Show a teddy on most screens, but in corners, not over content.
+- Use chunky display type for titles and big numbers.
+- Pair every color with a pattern or initial for players.
+- Use one or two rotated stickers per screen, no more.
+
+### Don't
+- No neon, glow, or glassy blur effects.
+- No generic purple-to-blue gradients or floating orbs.
+- No confetti explosions or particle effects.
+- No pure black or pure white text.
+- No teddies covering the board, dots, or lines.
+- No emoji as UI elements.
+- No thin, light-weight display type.
+- No more than two textured surfaces in one view.
+- No teddy expressions that mock or shame the player (the Sad expression is for errors only).
+- No gendered avatar styling. Avatars are teddy variants, separate from the gender field.
+
+---
+
+## 16. Handoff: Prompts for Google AI Studio
+
+Build in this order. Confirm each step visually before continuing.
+
+**Step 1: Theme and textures**
+> Create a theme file with the colors in DRD §3, the type scale and families in §5 (Lilita One, Fredoka, Nunito), the outline and shadow system in §6. Build reusable SVG texture components for paper (feTurbulence noise plus fibers) and wood (striped gradient plus stretched turbulence grain). Add a `PaperSurface` and `WoodSurface` wrapper component.
+
+**Step 2: Core components**
+> Build PrimaryButton (honey with 4 px bottom lip, pressable), SecondaryButton, IconButton, PaperCard, Chip, Toggle, TextInput, BottomSheet, BottomNav (wood bar with sticker active state), and StickerBadge. Follow DRD §6 and §10 exactly.
+
+**Step 3: Teddy character**
+> Build a `Teddy` SVG component with props `pose` (waving, pencil, trophy, cocoa, peeking) and `expression` (happy, thinking, surprised, celebrating, sleepy, sad). Flat vector, 3 px ink outline, two-tone fur, no gradients. Add a `TeddyAvatar` that wraps Teddy in a squircle frame with an optional accessory slot. Follow DRD §7.
+
+**Step 4: Board visuals**
+> Restyle the Offline Room board per DRD §8: paper sheet on wood, wooden peg dots, pencil-style lines with a seeded hand-drawn wobble, faint dotted undrawn lines, box claims with player color, ink outline, pattern overlay, and initial in Lilita One. Turn pill and score chips per §8.5. Keep the game logic from the PRD engine unchanged.
+
+**Step 5: Profile creation and avatars**
+> Build the Create profile screen with a teddy avatar carousel (8 bodies, 12 accessories), color swatches with pattern options, gender selection as a separate field, and a Biscuit teddy that reacts to typing (thinking while typing, happy when valid).
+
+**Step 6: Home, Lobby and navigation**
+> Build Home with three sticker-style mode cards on paper over wood, with Biscuit peeking from a corner. Build the Lobby on felt with a wooden signboard title and ticket-style room cards. Add the wood bottom navigation.
+
+**Step 7: Results, Level transition and Leaderboard**
+> Build the level transition with "Level N" in display type and Biscuit celebrating. Build Results with a wooden podium, winner avatar, and a paper stat table. Build the Leaderboard with a top-3 wood podium, paper list rows, and a highlighted honey band for the local user.
+
+**Step 8: Chat, Voice and Paywall**
+> Build chat bubbles per §10.2. Build the Voice panel on felt with round avatar stickers and the honey speaking ring. Build the paywall with the ₹9 / month price in display type, a ribbon banner, and Biscuit with headphones.
+
+**Step 9: Motion, sound placeholders, accessibility**
+> Add the motion values in §12 and the reduced-motion setting. Add the dyslexia-friendly font option (Lexend). Add sound hooks for each event in §12.2 with placeholder files and a global mute toggle.
+
+**Step 10: Polish pass**
+> Check every screen against DRD §9. Confirm no screen has more than two textured surfaces, no teddy covers the board, every player is identified by color, pattern and initial, and contrast meets §11.
+
+---
+
+## Appendix A: Change Log from PRD §10
+
+| PRD §10 (old) | DRD (new) |
+|---|---|
+| Dark charcoal base, muted palette | Warm paper and wood base, bright cheerful palette |
+| No gradients, no emoji, restrained | Stickers, teddy characters, bold chunky display type |
+| Serif display type (Newsreader) | Lilita One and Fredoka (bubbly, rounded) |
+| Flat surfaces, one elevation | Hard offset shadows, thick outlines, pressable buttons |
+| Minimal motion | Bouncy, short motion; teddy animations |
+| Board: light paper, ink lines | Board: paper sheet on wood, pegs, pencil lines with wobble |

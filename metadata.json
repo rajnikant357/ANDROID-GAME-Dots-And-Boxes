@@ -1,0 +1,6 @@
+{
+  "name": "Dots & Boxes",
+  "description": "A restrained, tactile two-player strategy board game with 3-level matches, offline pass-and-play, online lobby prototype, voice subscription preview, and global leaderboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
