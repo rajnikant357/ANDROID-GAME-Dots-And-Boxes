@@ -5,12 +5,11 @@
 </p>
 
 <p align="center">
-  <a href="YOUR_GITHUB_RELEASE_LINK">
+  <a href="https://github.com/rajnikant357/ANDROID-GAME-Dots-Boxes/releases/download/Dots_and_Boxes/Dots.and.boxes.apk">
     <img src="https://img.shields.io/badge/DOWNLOAD%20THIS%20APP-FF2424?style=for-the-badge&logo=android&logoColor=white" alt="Download this app" height="56">
   </a>
 </p>
 
-> **Download link placeholder:** Replace `YOUR_GITHUB_RELEASE_LINK` above with the URL for this app's GitHub Release.
 
 Dots and Boxes is an Android take on the classic pencil-and-paper game. This app is made by **Prometrion**.
 
