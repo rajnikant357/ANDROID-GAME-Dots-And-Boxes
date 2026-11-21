@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/rajnikant357/ANDROID-GAME-Dots-Boxes/releases/download/Dots_and_Boxes/Dots.and.boxes.apk">
-    <img src="https://img.shields.io/badge/DOWNLOAD%20THIS%20APP-FF2424?style=for-the-badge&logo=android&logoColor=white" alt="Download this app" height="56">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20THIS%20APP-FF2424?style=for-the-badge&logo=android&logoColor=white&labelColor=E00000" alt="Download this app" height="72">
   </a>
 </p>
 
@@ -17,6 +17,13 @@
   &nbsp;&nbsp;
   <img src="public/game.jpeg" alt="Game screen" width="30%">
 </p>
+
+<p align="center">
+  <a href="https://github.com/rajnikant357/ANDROID-GAME-Dots-Boxes/releases/download/Dots_and_Boxes/Dots.and.boxes.apk">
+    <img src="https://img.shields.io/badge/DOWNLOAD%20THIS%20APP-FF2424?style=for-the-badge&logo=android&logoColor=white&labelColor=E00000" alt="Download this app" height="72">
+  </a>
+</p>
+
 
 Dots and Boxes is an Android take on the classic pencil-and-paper game. This app is made by **Prometrion**.
 
