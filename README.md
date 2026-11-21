@@ -10,6 +10,13 @@
   </a>
 </p>
 
+<p align="center">
+  <img src="public/landing%20screen.jpeg" alt="Landing screen" width="30%">
+  &nbsp;&nbsp;
+  <img src="public/home.jpeg" alt="Home screen" width="30%">
+  &nbsp;&nbsp;
+  <img src="public/game.jpeg" alt="Game screen" width="30%">
+</p>
 
 Dots and Boxes is an Android take on the classic pencil-and-paper game. This app is made by **Prometrion**.
 
